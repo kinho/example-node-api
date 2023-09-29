@@ -1,7 +1,7 @@
 import Router from 'express-promise-router'
 
 import { sign } from '../auth/jwt.js'
-import { userService } from '../services/user.js'
+import { login } from '../services/user.js'
 
 const router = new Router()
 export default router
@@ -10,7 +10,7 @@ router.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body
 
-    const id = await userService.login(username, password)
+    const id = await login(username, password)
 
     if (!id)
       return res.status(401).end()

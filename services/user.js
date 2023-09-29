@@ -8,29 +8,30 @@ const createUserSchema = yup.object({
   password: yup.string().min(6).max(32).required(),
 })
 
-export const userService = {
-  createValidation: async (username, password) => {
+export const create = {
+  validate: async (username, password) => {
     const [_, valid] = await to(createUserSchema.validate({ username, password }))
 
     return valid
   },
-  createPersist: async () => {
+  persist: async (username, password) => {
     const insert = 'INSERT INTO users(username, password) VALUES($1, MD5($2))'
-
     const { rowCount } = await query(insert, [username, password])
 
-    return rowCount > 1
-  },
-  get: async (id) => {
-    const { rows } = await query('SELECT * FROM users WHERE id = $1', [id])
+    return rowCount > 0
+  }
+}
 
-    return rows[0] || {}
-  },
-  login: async (login, password) => {
-    const select = 'SELECT id FROM users WHERE username = $1 AND password = MD5($2)'
-    const { rows } = await query(select, [login, password])
-    const { id } = rows[0] || {}
+export const get = async (id) => {
+  const { rows } = await query('SELECT * FROM users WHERE id = $1', [id])
 
-    return id
-  },
+  return rows[0] || {}
+}
+
+export const login = async (login, password) => {
+  const select = 'SELECT id FROM users WHERE username = $1 AND password = MD5($2)'
+  const { rows } = await query(select, [login, password])
+  const { id } = rows[0] || {}
+
+  return id
 }
