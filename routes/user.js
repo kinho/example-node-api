@@ -1,7 +1,7 @@
 import Router from 'express-promise-router'
 
-import { query } from '../db/index.js'
 import { authMiddleware } from './middleware.js'
+import { service } from './service.js'
 
 const router = new Router()
 export default router
@@ -9,9 +9,9 @@ export default router
 router.get('/:id', authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params
-    const { rows } = await query('SELECT * FROM users WHERE id = $1', [id])
+    const user = await service.user.get(id)
 
-    res.send(rows[0] || {})
+    return res.json(user)
 
   } catch (e) {
     next(e)
@@ -22,13 +22,13 @@ router.post('/', async (req, res, next) => {
   try {
     const { username, password } = req.body
 
-    const insert = 'INSERT INTO users(username, password) VALUES($1, MD5($2))'
-    const values = [username, password]
+    const valid = await service.user.createValidation(username, password)
+    if (!valid)
+      return res.status(400).end()
 
-    const { rowCount } = await query(insert, values)
+    const saved = await service.user.createPersist(username, password)
 
-    res.status(rowCount > 0 ? 200 : 500)
-    return res.end()
+    return res.status(saved > 0 ? 200 : 500).end()
 
   } catch (e) {
     next(e)

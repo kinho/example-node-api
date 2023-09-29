@@ -10,7 +10,8 @@ router.get('/', authMiddleware, async (_, res, next) => {
   try {
     const select = 'SELECT news.*, users.username FROM news LEFT JOIN users ON users.id = news.author_id ORDER BY news.id DESC LIMIT 50'
     const { rows } = await query(select)
-    res.send(rows)
+
+    return res.json(rows)
 
   } catch (e) {
     next(e)
@@ -26,8 +27,7 @@ router.post('/', authMiddleware, async (req, res, next) => {
 
     const { rowCount } = await query(insert, values)
 
-    res.status(rowCount > 0 ? 200 : 500)
-    return res.end()
+    return res.status(rowCount > 0 ? 200 : 500).end()
 
   } catch (e) {
     next(e)

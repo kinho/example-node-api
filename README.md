@@ -22,7 +22,7 @@ $ yarn install
 ```
 
 
-### Running the api: localhost
+### Running api
 ```bash
 # localhost:3000/
 $ docker-compose up
@@ -30,4 +30,10 @@ $ docker-compose up
 # to clean up
 $ docker compose down -v
 $ docker rmi -f $(docker images -a -q)
+```
+
+### Running test
+```bash
+$ cd test
+$ npm run test
 ```
