@@ -23,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    command: node index.js
+    command: yarn start
     depends_on:
       - mission_db
     env_file: ./.env
