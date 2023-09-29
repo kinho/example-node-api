@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
   "scripts": {
-    "test": "node index.test.js"
+    "test": "node user.test.js"
   },
   "keywords": [],
   "author": "",

@@ -1,9 +1,7 @@
 # <b>MISSION BRASIL API</b>
 
-
 ### Description
 Mission Brasil challenge backend API.
-
 
 ### Requirements
 - node 18
@@ -11,16 +9,13 @@ Mission Brasil challenge backend API.
 - docker
 - docker-compose
 
-
 ### Configuration
 Create file .env in root project based on .env.example file.
-
 
 ### Installation
 ```bash
 $ yarn install
 ```
-
 
 ### Running api
 ```bash

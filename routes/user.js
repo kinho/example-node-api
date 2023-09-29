@@ -1,7 +1,7 @@
 import Router from 'express-promise-router'
 
-import { authMiddleware } from './middleware.js'
-import { service } from './service.js'
+import { authMiddleware } from '../auth/middleware.js'
+import { userService } from '../services/user.js'
 
 const router = new Router()
 export default router
@@ -9,7 +9,7 @@ export default router
 router.get('/:id', authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params
-    const user = await service.user.get(id)
+    const user = await userService.get(id)
 
     return res.json(user)
 
@@ -22,13 +22,13 @@ router.post('/', async (req, res, next) => {
   try {
     const { username, password } = req.body
 
-    const valid = await service.user.createValidation(username, password)
+    const valid = await userService.createValidation(username, password)
     if (!valid)
       return res.status(400).end()
 
-    const saved = await service.user.createPersist(username, password)
+    const saved = await userService.createPersist(username, password)
 
-    return res.status(saved > 0 ? 200 : 500).end()
+    return res.status(saved ? 200 : 500).end()
 
   } catch (e) {
     next(e)
