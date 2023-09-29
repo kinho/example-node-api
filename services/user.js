@@ -26,4 +26,11 @@ export const userService = {
 
     return rows[0] || {}
   },
+  login: async (login, password) => {
+    const select = 'SELECT id FROM users WHERE username = $1 AND password = MD5($2)'
+    const { rows } = await query(select, [login, password])
+    const { id } = rows[0] || {}
+
+    return id
+  },
 }
