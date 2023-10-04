@@ -1,8 +1,8 @@
 {
-  "name": "mission-challenge-api",
+  "name": "example-challenge-api",
   "version": "1.0.0",
   "main": "server.js",
-  "repository": "git@github.com:kinho/mission-challenge-api.git",
+  "repository": "git@github.com:kinho/example-node-api.git",
   "author": "kinho <kiinho@gmail.com>",
   "license": "MIT",
   "type": "module",

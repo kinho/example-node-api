@@ -1,7 +1,7 @@
-# <b>MISSION BRASIL API</b>
+# <b>EXAMPLE NODE API</b>
 
 ### Description
-Mission Brasil challenge backend API.
+Simple example Nodejs API with express in a docker container.
 
 ### Requirements
 - node 18
